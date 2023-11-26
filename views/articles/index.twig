@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Articles</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h3 {
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        form {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        small {
+            color: #777;
+        }
+
+        form.create-article {
+            margin-top: 20px;
+        }
+
+        button.create-article-btn {
+            background-color: #28a745;
+        }
+    </style>
+</head>
+<body>
+
+{% for article in articles.all %}
+    <div class="article">
+        <h3>
+            <a href="/articles/{{ article.id }}">{{ article.title }}</a>
+        </h3>
+        <form method="post" action="/articles/{{ article.id }}/delete">
+            <button type="submit" onclick="return confirm('Do you want to delete?')">DELETE</button>
+        </form>
+        <p>
+            <small>{{ article.createdAt.format('Y-m-d H:i:s') }}</small>
+        </p>
+    </div>
+{% endfor %}
+
+<div class="create-article">
+    <form class="create-article" method="get" action="/articles/create">
+        <button type="submit" class="create-article-btn">NEW ARTICLE</button>
+    </form>
+</div>
+
+</body>
+</html>
